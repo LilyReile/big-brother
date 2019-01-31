@@ -3,25 +3,38 @@ require 'faraday'
 require 'faraday-cookie_jar'
 require 'rehtml'
 
-class LoggedAssignment
+class Assignment
   include Aws::Record
   set_table_name ENV['DDB_TABLE']
   string_attr :hash, hash_key: true
   string_attr :course_title
   string_attr :name
   integer_attr :percentage
+
+  def hash
+    [
+      self.course_title,
+      self.name,
+      self.percentage
+    ]
+    .join
+    .gsub(/[[:space:]]/, '')
+  end
+
+  def save
+    self.hash = self.hash
+    super
+  end
 end
 
-
 def entry(event:, context:)
-  logged_assignment_keys = LoggedAssignment.scan.map(&:hash)
+  old_assignment_hashes = Assignment.scan.map(&:hash)
 
   new_assignments = current_assignments
-  .uniq { |assignment| normalized_key(assignment) }
-  .reject { |assignment| logged_assignment_keys.include?(normalized_key(assignment)) }
+  .uniq { |assignment| assignment.hash }
+  .reject { |assignment| old_assignment_hashes.include?(assignment.hash) }
 
-  new_assignments
-  .each { |assignment| log_assignment(assignment) }
+  new_assignments.each { |assignment| assignment.save }
 
   if new_assignments.count > 0
     ENV['RECIPIENTS'].split(',').each do |recipient|
@@ -47,28 +60,9 @@ end
 
 def aggregate_report(new_assignments)
   lines = new_assignments.map do |assignment|
-    "#{assignment[:percentage]}% on #{assignment[:name]} in #{assignment[:course_title]}"
+    "#{assignment.percentage}% on #{assignment.name} in #{assignment.course_title}"
   end
   ["New grades for Danoel:"].concat(lines).join("\n\n")
-end
-
-def log_assignment(assignment)
-  LoggedAssignment.new(
-    hash: normalized_key(assignment),
-    course_title: assignment[:course_title],
-    name: assignment[:name],
-    percentage: assignment[:percentage]
-  ).save
-end
-
-def normalized_key(assignment)
-  [
-    assignment[:course_title],
-    assignment[:name],
-    assignment[:percentage]
-  ]
-  .join
-  .gsub(/[[:space:]]/, '')
 end
 
 def current_assignments
@@ -139,11 +133,11 @@ def current_assignments
       raw_percentage = cells[9][0].to_s
       percentage = raw_percentage.strip.empty? ? nil : raw_percentage.to_i
 
-      assignments.push(
+      assignments.push(Assignment.new(
         course_title: course_title,
         name: name,
         percentage: percentage
-      )
+      ))
     end
   end
 
