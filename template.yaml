@@ -21,6 +21,29 @@ Resources:
       PrimaryKey:
         Name: hash
         Type: String
+  ScheduledRule:
+    Type: AWS::Events::Rule
+    Properties:
+      ScheduleExpression: rate(1 day)
+      State: ENABLED
+      Targets:
+        -
+          Arn:
+            Fn::GetAtt:
+              - BigBrotherFunction
+              - Arn
+          Id: TargetFunctionV1
+  PermissionForEventsToInvokeLambda:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName:
+        Ref: BigBrotherFunction
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn:
+        Fn::GetAtt:
+          - ScheduledRule
+          - Arn
 Outputs:
   BigBrotherFunction:
     Value:
