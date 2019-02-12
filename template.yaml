@@ -15,6 +15,12 @@ Resources:
       Environment:
         Variables:
           DDB_TABLE: !Ref AssignmentDDBTable
+          RECIPIENTS: '{{resolve:ssm:RECIPIENTS:1}}'
+          SCHOOL_ID: '{{resolve:ssm:SCHOOL_ID:1}}'
+          SCHOOL_PASSWORD: '{{resolve:ssm:SCHOOL_PASSWORD:1}}'
+          SCHOOL_USERNAME: '{{resolve:ssm:SCHOOL_USERNAME:1}}'
+          TWILIO_ACCOUNT_SID: '{{resolve:ssm:TWILIO_ACCOUNT_SID:1}}'
+          TWILIO_AUTH_TOKEN: '{{resolve:ssm:TWILIO_AUTH_TOKEN:1}}'
   AssignmentDDBTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
