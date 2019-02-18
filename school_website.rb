@@ -1,3 +1,4 @@
+require 'rehtml'
 require_relative 'assignment'
 
 module SchoolWebsite

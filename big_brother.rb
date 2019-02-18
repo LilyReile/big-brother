@@ -1,9 +1,8 @@
-require 'aws-record'
 require 'faraday'
 require 'faraday-cookie_jar'
-require 'rehtml'
 require_relative 'assignment'
 require_relative 'school_website'
+require_relative 'report'
 
 def entry(event:, context:)
   old_assignment_hashes = Assignment.scan.map(&:hash)
@@ -15,8 +14,10 @@ def entry(event:, context:)
   new_assignments.each { |assignment| assignment.save }
 
   if new_assignments.count > 0
+    message = Report.new(new_assignments).message
+
     ENV['RECIPIENTS'].split(',').each do |recipient|
-      send_sms(recipient, aggregate_report(new_assignments))
+      send_sms(recipient, message)
     end
   end
 end
@@ -34,11 +35,4 @@ def send_sms(recipient, message)
       'From' => '+15012224183',
       'To' => recipient
   })
-end
-
-def aggregate_report(new_assignments)
-  lines = new_assignments.map do |assignment|
-    "#{assignment.percentage}% on #{assignment.name} in #{assignment.course_title}"
-  end
-  ["New grades for Danoel:"].concat(lines).join("\n\n")
 end

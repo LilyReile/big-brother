@@ -1,5 +1,8 @@
+require 'aws-record'
+
 class Assignment
   include Aws::Record
+
   set_table_name ENV['DDB_TABLE']
   string_attr :hash, hash_key: true
   string_attr :course_title
