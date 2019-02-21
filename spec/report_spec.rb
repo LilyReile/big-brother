@@ -17,7 +17,7 @@ RSpec.describe Report do
         )
       ]
 
-      message = Report.new(assignments).message
+      message = described_class.new(assignments).message
 
       expect(message).to eq(<<~MESSAGE.chomp)
         New grades for Danoel:
