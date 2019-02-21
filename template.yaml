@@ -8,7 +8,7 @@ Resources:
     Properties:
       Handler: big_brother.entry
       Runtime: ruby2.5
-      Timeout: 60
+      Timeout: 300
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AssignmentDDBTable
