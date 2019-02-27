@@ -3,7 +3,7 @@ require_relative 'school_website'
 require_relative 'report'
 require_relative 'twilio_client'
 
-def entry(event:, context:)
+def entry(event: nil, context: nil)
   old_assignment_hashes = Assignment.scan.map(&:hash)
 
   new_assignments = SchoolWebsite.assignments
