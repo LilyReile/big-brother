@@ -1,4 +1,6 @@
 require 'rehtml'
+require 'faraday'
+require 'faraday-cookie_jar'
 require_relative 'assignment'
 
 module SchoolWebsite

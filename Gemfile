@@ -7,5 +7,5 @@ gem 'rehtml'
 group :test do
   gem 'rspec'
   gem 'webmock'
-  gem 'pry'
+  gem 'vcr' # necessary evil
 end

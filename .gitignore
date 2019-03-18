@@ -1,3 +1,4 @@
 /vendor
 packaged-template.yaml
 .env.json
+/spec/fixtures/vcr_cassettes/
