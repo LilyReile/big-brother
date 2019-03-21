@@ -10,7 +10,7 @@ class TwilioClient
   def initialize
     @client = Faraday.new(url: URL) do |faraday|
       faraday.request(:url_encoded)
-      faraday.response(:logger)
+      faraday.response(:logger) unless ENV["ENVIORNMENT"] == "testing"
       faraday.adapter(Faraday.default_adapter)
       faraday.basic_auth(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'])
     end
