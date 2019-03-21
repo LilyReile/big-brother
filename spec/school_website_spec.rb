@@ -1,5 +1,5 @@
-require 'rspec'
 require 'vcr'
+require_relative 'spec_helper'
 require_relative '../school_website'
 
 RSpec.describe SchoolWebsite do

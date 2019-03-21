@@ -1,4 +1,4 @@
-require 'rspec'
+require_relative 'spec_helper'
 require_relative '../big_brother'
 
 RSpec.describe 'Big Brother' do

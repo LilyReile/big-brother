@@ -7,7 +7,7 @@ module SchoolWebsite
   def self.assignments
     grade_site = Faraday.new(url: 'https://hac40.esp.k12.ar.us') do |faraday|
       faraday.request(:url_encoded)
-      faraday.response(:logger)
+      faraday.response(:logger) unless ENV['ENVIRONMENT'] == "testing"
       faraday.use(:cookie_jar)
       faraday.adapter(Faraday.default_adapter)
     end

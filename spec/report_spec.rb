@@ -1,4 +1,4 @@
-require 'rspec'
+require_relative 'spec_helper'
 require_relative '../report'
 
 RSpec.describe Report do
