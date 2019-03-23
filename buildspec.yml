@@ -1,0 +1,19 @@
+version: 0.2
+
+env:
+  parameter-store:
+    YAML_VAULT_PASSPHRASE: "YAML_VAULT_PASSPHRASE"
+
+phases:
+  install:
+    commands:
+      - gem install bundler
+      - gem install yaml_vault
+      - bundle install
+  pre_build:
+    commands:
+      - mkdir spec/fixtures/vcr_cassettes
+      - YAML_VAULT_PASSPHRASE=$YAML_VAULT_PASSPHRASE yaml_vault decrypt spec/fixtures/vcr_cassettes_encrypted/school_website_assignments_encrypted.yml -o spec/fixtures/vcr_cassettes/school_website_assignments.yml
+  build:
+    commands:
+      - bundle exec rspec spec
