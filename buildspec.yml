@@ -9,7 +9,7 @@ phases:
     commands:
       - gem install bundler
       - gem install yaml_vault
-      - bundle install
+      - bundle install --deployment
   pre_build:
     commands:
       - mkdir spec/fixtures/vcr_cassettes
@@ -17,3 +17,9 @@ phases:
   build:
     commands:
       - bundle exec rspec spec
+      - aws cloudformation package --template-file template.yaml --output-template-file packaged-template.yaml --s3-bucket dylansreile-big-brother
+artifacts:
+  type: :zip
+  files:
+    - template.yaml
+    - packaged-template.yaml
