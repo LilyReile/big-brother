@@ -6,7 +6,7 @@ Resources:
   BigBrotherFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: big_brother.entry
+      Handler: lib/big_brother.entry
       Runtime: ruby2.5
       Timeout: 300
       Policies:

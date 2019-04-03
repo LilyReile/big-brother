@@ -1,5 +1,5 @@
 require_relative 'spec_helper'
-require_relative '../assignment'
+require_relative '../lib/assignment'
 
 RSpec.describe Assignment do
   describe '#hash' do

@@ -1,5 +1,5 @@
 require_relative 'spec_helper'
-require_relative '../big_brother'
+require_relative '../lib/big_brother'
 
 RSpec.describe 'Big Brother' do
   let(:new_assignment) do

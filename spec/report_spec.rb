@@ -1,5 +1,5 @@
 require_relative 'spec_helper'
-require_relative '../report'
+require_relative '../lib/report'
 
 RSpec.describe Report do
   describe "#message" do

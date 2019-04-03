@@ -1,6 +1,6 @@
 require 'webmock/rspec'
 require_relative 'spec_helper'
-require_relative '../twilio_client'
+require_relative '../lib/twilio_client'
 
 RSpec.describe TwilioClient do
   describe "#send_sms" do
