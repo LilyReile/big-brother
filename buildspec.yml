@@ -7,7 +7,8 @@ env:
 phases:
   install:
     commands:
-      - gem install bundler
+      - export BUNDLER_VERSION='2.0.1'
+      - gem install bundler -v '~> 2.0'
       - gem install yaml_vault
       - bundle install --deployment
   pre_build:
