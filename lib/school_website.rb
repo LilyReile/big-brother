@@ -3,6 +3,7 @@ require 'faraday'
 require 'faraday-cookie_jar'
 require_relative 'assignment'
 
+# This is ugly, but since when is web scraping pretty?
 module SchoolWebsite
   def self.assignments
     grade_site = Faraday.new(url: 'https://hac40.esp.k12.ar.us') do |faraday|
