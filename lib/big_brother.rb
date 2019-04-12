@@ -4,7 +4,7 @@ require_relative 'report'
 require_relative 'twilio_client'
 
 def entry(event: nil, context: nil)
-  old_assignment_hashes = Assignment.scan.map(&:hash)
+  old_assignment_hashes = Assignment.scan.map(&:hash).to_set
 
   new_assignments = SchoolWebsite.assignments
   .uniq { |assignment| assignment.hash }
