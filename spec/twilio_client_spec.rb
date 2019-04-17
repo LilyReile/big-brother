@@ -7,8 +7,7 @@ RSpec.describe TwilioClient do
     it "posts the right params to the Twilio create message endpoint" do
       recipient = '5018675309'
       message = 'super cool message'
-      full_endpoint_url =
-        described_class::URL + described_class::CREATE_MESSAGE_ENDPOINT
+      full_endpoint_url = described_class::URL + described_class::CREATE_MESSAGE_ENDPOINT
       stub_request(:post, full_endpoint_url)
 
       described_class.new.send_sms(recipient, message)

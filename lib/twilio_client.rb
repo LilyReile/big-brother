@@ -4,8 +4,7 @@ require 'faraday-cookie_jar'
 class TwilioClient
   FROM = '5012224183'
   URL = 'https://api.twilio.com'
-  CREATE_MESSAGE_ENDPOINT =
-    '/2010-04-01/Accounts/AC45e490df21d67d5214b7faab4597f4d2/Messages.json'
+  CREATE_MESSAGE_ENDPOINT = '/2010-04-01/Accounts/AC45e490df21d67d5214b7faab4597f4d2/Messages.json'
 
   def initialize
     @client = Faraday.new(url: URL) do |faraday|

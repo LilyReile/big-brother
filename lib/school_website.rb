@@ -3,7 +3,6 @@ require 'faraday'
 require 'faraday-cookie_jar'
 require_relative 'assignment'
 
-# This is ugly, but since when is web scraping pretty?
 module SchoolWebsite
   def self.assignments
     grade_site = Faraday.new(url: 'https://hac40.esp.k12.ar.us') do |faraday|
@@ -54,7 +53,7 @@ module SchoolWebsite
         .elements['div[@class="sg-header sg-header-square"]/a[@class="sg-header-heading"]']
         .first
         .to_s
-        .gsub(/[^a-z]/i, '')
+        .gsub(/[^[:alpha:]]/, '')
 
       course_assignment_rows = course
         .elements

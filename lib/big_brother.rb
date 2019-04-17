@@ -12,7 +12,7 @@ def entry(event: nil, context: nil)
 
   new_assignments.each { |assignment| assignment.save }
 
-  if new_assignments.count > 0
+  if new_assignments.any?
     message = Report.new(new_assignments).message
     twilio_client = TwilioClient.new
 
