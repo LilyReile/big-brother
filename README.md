@@ -34,13 +34,15 @@ This was a real thinker. [VCR](https://github.com/vcr/vcr) is a gem that allows 
 
 My initial solution was to manually redact the sensitive information--editing a few thousand lines wouldn't be too bad. However, every developer who has written a web scraper knows that they frequently break due to markup changes on the third-party site. When that inevitably happens, I would need to regenerate the cassettes and manually redact them again.
 
-Instead of this sisyphean task, I decided to commit encrypted versions of the cassettes. CI installs [YAML Vault](https://github.com/joker1007/yaml_vault), pulls the secret key from AWS SSM, and [decrypts the cassettes](/buildspec.yml#L17) before running RSpec.
+Instead of this sisyphean task, I decided to [commit encrypted versions of the cassettes](/spec/fixtures/vcr_cassettes_encrypted). CI installs [YAML Vault](https://github.com/joker1007/yaml_vault), pulls the secret key from AWS SSM, and [decrypts the cassettes](/buildspec.yml#L17) before running RSpec.
 
 ### Custom Twilio Client
 The official Twilio gem has a dependency on Nokogiri, which has a dependency on native binary extensions. It is possible to provide native libraries through AWS Lambda Layers, but the configuration is more complex than just POSTing with Faraday.
 
+After loading $20 into a Twilio account, I learned that AWS SNS offers 100 free SMS messages per month. I will look into switching providers once the Twilio balance is depleted.
+
 ### Web Scraping
-Without the luxury of an API, I was forced to scrape the school's legacy ASP.net WebForms site. This requires an inelegant sequence of calls mimicked by watching the Network tab in the Chrome developer console.
+Without the luxury of an API, I was forced to scrape the school's legacy ASP.net WebForms site. This requires an inelegant sequence of calls mimicked by watching the network tab in the Chrome developer console. I eventually settled on [REHTML](https://github.com/nazoking/rehtml) after struggling to find an XPath gem that didn't rely on native extensions for lexing. Its interface is confusing, but it serves this project's needs as a pure Ruby implementation.
 
 ### AWS Systems Manager Parameter Store
 AWS SSM provides an elegant way to handle sensitive environment variables. Simply store them via the AWS SSM CLI and reference them by name in the [template](/template.yaml#L18).
