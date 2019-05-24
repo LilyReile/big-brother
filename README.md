@@ -1,4 +1,4 @@
-# Big Brother
+![logo](https://raw.githubusercontent.com/DylanReile/big-brother/master/images/logo.png)
 
 My little brother takes advantage of the fact that our mother is not tech-savvy enough to check the grades on his school website.
 
