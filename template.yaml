@@ -15,7 +15,7 @@ Resources:
       Environment:
         Variables:
           DDB_TABLE: !Ref AssignmentDDBTable
-          RECIPIENTS: '{{resolve:ssm:RECIPIENTS:1}}'
+          RECIPIENTS: '{{resolve:ssm:RECIPIENTS:2}}'
           SCHOOL_ID: '{{resolve:ssm:SCHOOL_ID:1}}'
           SCHOOL_PASSWORD: '{{resolve:ssm:SCHOOL_PASSWORD:1}}'
           SCHOOL_USERNAME: '{{resolve:ssm:SCHOOL_USERNAME:1}}'
