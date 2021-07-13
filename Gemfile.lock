@@ -1,8 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.6.0)
-      public_suffix (>= 2.0.2, < 4.0)
+    addressable (2.8.0)
+      public_suffix (>= 2.0.2, < 5.0)
     aws-eventstream (1.0.1)
     aws-partitions (1.136.0)
     aws-record (2.2.0)
@@ -31,7 +31,7 @@ GEM
       domain_name (~> 0.5)
     jmespath (1.4.0)
     multipart-post (2.0.0)
-    public_suffix (3.0.3)
+    public_suffix (4.0.6)
     rehtml (0.0.1)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
