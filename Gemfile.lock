@@ -29,7 +29,7 @@ GEM
     hashdiff (0.3.8)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    jmespath (1.4.0)
+    jmespath (1.6.1)
     multipart-post (2.0.0)
     public_suffix (3.0.3)
     rehtml (0.0.1)
