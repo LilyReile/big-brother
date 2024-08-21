@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Report my little brother's grades via SMS.
+Outputs:
+  BigBrotherFunction:
+    Value:
+      Fn::GetAtt:
+      - BigBrotherFunction
+      - Arn
+Resources:
+  AssignmentDDBTable:
+    Properties:
+      PrimaryKey:
+        Name: hash
+        Type: String
+    Type: AWS::Serverless::SimpleTable
+  BigBrotherFunction:
+    Properties:
+      CodeUri: s3://lilybreile-big-brother/fefb7849c184240239aa9c6f2251120d
+      Environment:
+        Variables:
+          DDB_TABLE:
+            Ref: AssignmentDDBTable
+      Handler: big_brother.entry
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: AssignmentDDBTable
+      Runtime: ruby2.5
+      Timeout: 60
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31

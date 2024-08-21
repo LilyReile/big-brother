@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+gem 'aws-record'
+gem 'faraday'
+gem 'faraday-cookie_jar'
+gem 'rehtml'

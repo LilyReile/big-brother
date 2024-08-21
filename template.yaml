@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: "Report my little brother's grades via SMS."
+
+Resources:
+  BigBrotherFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: big_brother.entry
+      Runtime: ruby2.5
+      Timeout: 60
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref AssignmentDDBTable
+      Environment:
+        Variables:
+          DDB_TABLE: !Ref AssignmentDDBTable
+  AssignmentDDBTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: hash
+        Type: String
+Outputs:
+  BigBrotherFunction:
+    Value:
+      Fn::GetAtt:
+      - BigBrotherFunction
+      - Arn
